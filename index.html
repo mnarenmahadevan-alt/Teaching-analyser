@@ -4,52 +4,52 @@
   <meta charset="UTF-8">
   <title>Smart Learning Analyzer</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
 <div class="container">
-  <h1>🧠 How I Learn Best</h1>
-  <p class="subtitle">Discover your personalized learning style</p>
+  <h1>🧠 Smart Learning Style Analyzer</h1>
+  <p class="subtitle">Scientific analysis of how you learn best</p>
 
   <form id="quizForm">
 
-    <h3>Basic Details</h3>
-    <input type="text" placeholder="Your Name (optional)">
-
-    <h3>Answer the following</h3>
-
     <div class="question">
-      <p>1. When studying a new topic, I prefer:</p>
-      <label><input type="radio" name="q1" value="reading" required> Reading notes/books</label>
-      <label><input type="radio" name="q1" value="watching"> Watching videos</label>
-      <label><input type="radio" name="q1" value="practicing"> Practicing problems</label>
+      <p>1. I understand faster when I:</p>
+      <label><input type="radio" name="q1" value="reading" required> Read theory</label>
+      <label><input type="radio" name="q1" value="watching"> Watch videos</label>
+      <label><input type="radio" name="q1" value="practicing"> Practice myself</label>
     </div>
 
     <div class="question">
-      <p>2. I remember concepts best when I:</p>
-      <label><input type="radio" name="q2" value="reading" required> Write and revise</label>
-      <label><input type="radio" name="q2" value="watching"> Visualize diagrams</label>
-      <label><input type="radio" name="q2" value="practicing"> Apply concepts</label>
+      <p>2. I remember concepts best by:</p>
+      <label><input type="radio" name="q2" value="reading" required> Revising notes</label>
+      <label><input type="radio" name="q2" value="watching"> Visual diagrams</label>
+      <label><input type="radio" name="q2" value="practicing"> Solving problems</label>
     </div>
 
     <div class="question">
-      <p>3. For exams, I rely more on:</p>
-      <label><input type="radio" name="q3" value="reading" required> Theory revision</label>
-      <label><input type="radio" name="q3" value="watching"> Visual memory</label>
-      <label><input type="radio" name="q3" value="practicing"> Problem solving</label>
+      <p>3. For exams, I prefer:</p>
+      <label><input type="radio" name="q3" value="reading" required> Theory focus</label>
+      <label><input type="radio" name="q3" value="watching"> Visual recall</label>
+      <label><input type="radio" name="q3" value="practicing"> Practice questions</label>
     </div>
 
     <div class="question">
-      <p>4. I feel confident after studying when I:</p>
-      <label><input type="radio" name="q4" value="reading" required> Read thoroughly</label>
+      <p>4. I gain confidence when I:</p>
+      <label><input type="radio" name="q4" value="reading" required> Read deeply</label>
       <label><input type="radio" name="q4" value="watching"> See examples</label>
-      <label><input type="radio" name="q4" value="practicing"> Practice myself</label>
+      <label><input type="radio" name="q4" value="practicing"> Apply concepts</label>
     </div>
 
-    <button type="submit">Analyze My Learning Style</button>
+    <button type="submit">Analyze Learning Pattern</button>
   </form>
 
-  <div id="result" class="hidden"></div>
+  <div id="resultSection" class="hidden">
+    <h2>📊 Learning Analysis</h2>
+    <canvas id="resultChart"></canvas>
+    <div id="summary"></div>
+  </div>
 </div>
 
 <script src="script.js"></script>
