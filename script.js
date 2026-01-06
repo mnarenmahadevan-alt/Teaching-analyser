@@ -1,47 +1,44 @@
 document.getElementById("quizForm").addEventListener("submit", function(e) {
   e.preventDefault();
 
-  let scores = {
-    reading: 0,
-    watching: 0,
-    practicing: 0
-  };
+  let score = { reading: 0, watching: 0, practicing: 0 };
+  let data = new FormData(this);
 
-  const data = new FormData(this);
-
-  for (let answer of data.values()) {
-    if (scores[answer] !== undefined) {
-      scores[answer]++;
-    }
+  for (let value of data.values()) {
+    score[value] += 2; // weighted logic
   }
 
-  const total = scores.reading + scores.watching + scores.practicing;
+  let total = score.reading + score.watching + score.practicing;
 
-  const readingPct = Math.round((scores.reading / total) * 100);
-  const watchingPct = Math.round((scores.watching / total) * 100);
-  const practicingPct = Math.round((scores.practicing / total) * 100);
-
-  let primaryStyle = Object.keys(scores).reduce((a, b) =>
-    scores[a] > scores[b] ? a : b
-  );
-
-  let tips = {
-    reading: "Focus on books, notes, summaries, and revision.",
-    watching: "Use videos, diagrams, and visual explanations.",
-    practicing: "Learn by coding, solving problems, and hands-on work."
+  let percent = {
+    reading: Math.round((score.reading / total) * 100),
+    watching: Math.round((score.watching / total) * 100),
+    practicing: Math.round((score.practicing / total) * 100)
   };
 
-  document.getElementById("result").innerHTML = `
-    <h2>📊 Your Learning Profile</h2>
-    <p><strong>Primary Learning Style:</strong> ${primaryStyle.toUpperCase()}</p>
+  let sorted = Object.entries(percent).sort((a,b) => b[1]-a[1]);
+  let primary = sorted[0][0];
+  let secondary = sorted[1][0];
 
-    <p>📘 Reading: ${readingPct}%</p>
-    <p>🎥 Watching: ${watchingPct}%</p>
-    <p>🛠 Practicing: ${practicingPct}%</p>
+  localStorage.setItem("learningResult", JSON.stringify(percent));
 
-    <h3>🎯 Personalized Tip</h3>
-    <p>${tips[primaryStyle]}</p>
+  document.getElementById("resultSection").classList.remove("hidden");
+
+  document.getElementById("summary").innerHTML = `
+    <p><strong>Primary Style:</strong> ${primary.toUpperCase()}</p>
+    <p><strong>Secondary Style:</strong> ${secondary.toUpperCase()}</p>
+    <p>Recommended strategy: Combine <b>${primary}</b> with <b>${secondary}</b>.</p>
   `;
 
-  document.getElementById("result").classList.remove("hidden");
+  new Chart(document.getElementById("resultChart"), {
+    type: "bar",
+    data: {
+      labels: ["Reading", "Watching", "Practicing"],
+      datasets: [{
+        label: "Learning Preference %",
+        data: [percent.reading, percent.watching, percent.practicing],
+        backgroundColor: ["#667eea", "#48bb78", "#ed8936"]
+      }]
+    }
+  });
 });
