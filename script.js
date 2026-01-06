@@ -1,48 +1,47 @@
 document.getElementById("quizForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    let scores = {
-        reading: 0,
-        watching: 0,
-        practicing: 0
-    };
+  let scores = {
+    reading: 0,
+    watching: 0,
+    practicing: 0
+  };
 
-    const answers = new FormData(this);
+  const data = new FormData(this);
 
-    for (let value of answers.values()) {
-        scores[value]++;
+  for (let answer of data.values()) {
+    if (scores[answer] !== undefined) {
+      scores[answer]++;
     }
+  }
 
-    let learningStyle = Object.keys(scores).reduce((a, b) =>
-        scores[a] > scores[b] ? a : b
-    );
+  const total = scores.reading + scores.watching + scores.practicing;
 
-    let tips = "";
+  const readingPct = Math.round((scores.reading / total) * 100);
+  const watchingPct = Math.round((scores.watching / total) * 100);
+  const practicingPct = Math.round((scores.practicing / total) * 100);
 
-    if (learningStyle === "reading") {
-        tips = `
-        📘 You learn best by READING.<br><br>
-        ✔ Use textbooks & notes<br>
-        ✔ Make summaries<br>
-        ✔ Read aloud while studying
-        `;
-    } else if (learningStyle === "watching") {
-        tips = `
-        🎥 You learn best by WATCHING.<br><br>
-        ✔ Learn from videos<br>
-        ✔ Use diagrams & charts<br>
-        ✔ Visual explanations help you
-        `;
-    } else {
-        tips = `
-        🛠 You learn best by PRACTICING.<br><br>
-        ✔ Hands-on learning<br>
-        ✔ Solve problems<br>
-        ✔ Practice daily
-        `;
-    }
+  let primaryStyle = Object.keys(scores).reduce((a, b) =>
+    scores[a] > scores[b] ? a : b
+  );
 
-    const resultDiv = document.getElementById("result");
-    resultDiv.innerHTML = `<h2>Your Learning Style</h2><p>${tips}</p>`;
-    resultDiv.classList.remove("hidden");
+  let tips = {
+    reading: "Focus on books, notes, summaries, and revision.",
+    watching: "Use videos, diagrams, and visual explanations.",
+    practicing: "Learn by coding, solving problems, and hands-on work."
+  };
+
+  document.getElementById("result").innerHTML = `
+    <h2>📊 Your Learning Profile</h2>
+    <p><strong>Primary Learning Style:</strong> ${primaryStyle.toUpperCase()}</p>
+
+    <p>📘 Reading: ${readingPct}%</p>
+    <p>🎥 Watching: ${watchingPct}%</p>
+    <p>🛠 Practicing: ${practicingPct}%</p>
+
+    <h3>🎯 Personalized Tip</h3>
+    <p>${tips[primaryStyle]}</p>
+  `;
+
+  document.getElementById("result").classList.remove("hidden");
 });
