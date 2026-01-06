@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>How I Learn Best</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>🧠 How I Learn Best Analyzer</h1>
+    <p>Answer the questions to discover your learning style</p>
+
+    <form id="quizForm">
+        <div class="question">
+            <p>1. When learning something new, I prefer:</p>
+            <label><input type="radio" name="q1" value="reading" required> Reading notes or books</label>
+            <label><input type="radio" name="q1" value="watching"> Watching videos</label>
+            <label><input type="radio" name="q1" value="practicing"> Doing it myself</label>
+        </div>
+
+        <div class="question">
+            <p>2. I remember things better when I:</p>
+            <label><input type="radio" name="q2" value="reading" required> Read explanations</label>
+            <label><input type="radio" name="q2" value="watching"> See demonstrations</label>
+            <label><input type="radio" name="q2" value="practicing"> Practice repeatedly</label>
+        </div>
+
+        <div class="question">
+            <p>3. In exams, I understand concepts best by:</p>
+            <label><input type="radio" name="q3" value="reading" required> Revising notes</label>
+            <label><input type="radio" name="q3" value="watching"> Remembering visuals</label>
+            <label><input type="radio" name="q3" value="practicing"> Solving problems</label>
+        </div>
+
+        <button type="submit">Analyze</button>
+    </form>
+
+    <div id="result" class="result hidden"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
